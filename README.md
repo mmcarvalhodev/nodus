@@ -67,7 +67,7 @@ Your captured content stays on your device. No accounts required. Anonymous usag
 | Projects | Up to 3 |
 | Inject | ✅ |
 | Attachments | ✅ |
-| Languages | PT, EN, ES |
+| Languages | PT, EN, ES, FR, DE, IT, JA, ZH, KO, HI (10 total) |
 | Statistics | With telemetry enabled |
 
 ### PRO — $4.50/month or $30/year
@@ -148,9 +148,11 @@ nodus/
 ├── content/
 │   ├── content.js          # Main content script
 │   └── modules/            # Dashboard, chains, projects, attachments, license
-├── engines/                # Platform-specific capture engines (one per AI)
+├── core/                   # HTML→Markdown conversion, tab tracking
+├── modules/                # Cross-context state sync
+├── engines/                # 7 platform-specific capture engines
 ├── ui/                     # Popup HTML/JS/CSS
-├── i18n/                   # Translations (PT, EN, ES)
+├── i18n/                   # Translations (10 languages)
 ├── telemetry/              # Anonymous telemetry implementation
 ├── icons/                  # Extension icons
 ├── releases/               # Packaged builds (Chrome .zip, Firefox .xpi)
