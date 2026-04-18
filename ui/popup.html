@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NODUS - Stats</title>
+  <style>
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+    }
+    
+    body {
+      width: 300px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0e1117;
+      color: #e2e8f0;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* HEADER */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    header {
+      background: linear-gradient(135deg, #1a1f29 0%, #0f172a 100%);
+      padding: 10px 14px;
+      border-bottom: 2px solid #facc15;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo-icon { font-size: 18px; }
+    
+    .logo-text {
+      font-size: 15px;
+      font-weight: 700;
+      color: #facc15;
+    }
+    
+    .logo-version {
+      font-size: 9px;
+      color: #64748b;
+    }
+    
+    .header-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      color: #10b981;
+    }
+    
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background: #10b981;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* CONTENT */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .content {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* CARDS PRINCIPAIS (2 lado a lado) */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .main-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    
+    .main-card {
+      background: #1a1f29;
+      border: 1px solid #2d3748;
+      border-radius: 8px;
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    
+    .main-card:hover {
+      border-color: #facc15;
+      background: #1e2530;
+    }
+    
+    .main-card-icon {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      font-size: 12px;
+      opacity: 0.6;
+    }
+    
+    .main-card-value {
+      font-size: 32px;
+      font-weight: 700;
+      color: #facc15;
+      line-height: 1;
+    }
+    
+    .main-card-label {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 6px;
+    }
+    
+    /* Conteúdo expandido dos cards principais */
+    .main-card-expand {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.25s ease, opacity 0.25s ease, margin 0.25s ease;
+      margin-top: 0;
+    }
+    
+    .main-card:hover .main-card-expand {
+      max-height: 120px;
+      opacity: 1;
+      margin-top: 10px;
+    }
+    
+    /* Card Ideias - versão especial */
+    .card-ideias .main-card-expand {
+      max-height: 0;
+    }
+    
+    .card-ideias:hover .main-card-expand {
+      max-height: 160px;
+    }
+    
+    .card-ideias:hover .card-summary {
+      display: none;
+    }
+    
+    /* Resumo sempre visível */
+    .card-summary {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #2d3748;
+    }
+    
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      padding: 2px 0;
+    }
+    
+    .summary-label {
+      color: #64748b;
+    }
+    
+    .summary-value {
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+    
+    .summary-sub {
+      color: #64748b;
+      font-weight: 400;
+    }
+    
+    /* Lista expandida com scroll */
+    .expand-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      max-height: 130px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    
+    .expand-list::-webkit-scrollbar {
+      width: 3px;
+    }
+    
+    .expand-list::-webkit-scrollbar-track {
+      background: #0e1117;
+      border-radius: 2px;
+    }
+    
+    .expand-list::-webkit-scrollbar-thumb {
+      background: #4a5568;
+      border-radius: 2px;
+    }
+    
+    .expand-list-item {
+      display: flex;
+      justify-content: space-between;
+      background: #0e1117;
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+    }
+    
+    .expand-list-label {
+      color: #94a3b8;
+    }
+    
+    .expand-list-value {
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+    
+    .expand-list-sub {
+      color: #64748b;
+      font-weight: 400;
+    }
+    
+    .expand-list-divider {
+      height: 1px;
+      background: #2d3748;
+      margin: 4px 0;
+    }
+    
+    .expand-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      text-align: left;
+    }
+    
+    .expand-item {
+      background: #0e1117;
+      padding: 6px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+    }
+    
+    .expand-item-label {
+      color: #64748b;
+    }
+    
+    .expand-item-value {
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* ROWS SECUNDÁRIAS */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .secondary-row {
+      background: #1a1f29;
+      border: 1px solid #2d3748;
+      border-radius: 6px;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .secondary-row:hover {
+      border-color: #facc15;
+      background: #1e2530;
+    }
+    
+    .row-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .row-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .row-icon { font-size: 14px; }
+    
+    .row-text {
+      font-size: 12px;
+      color: #e2e8f0;
+    }
+    
+    .row-text .highlight {
+      color: #facc15;
+      font-weight: 600;
+    }
+    
+    .row-text .muted {
+      color: #64748b;
+    }
+    
+    /* Barra de storage inline */
+    .storage-bar-inline {
+      width: 80px;
+      height: 6px;
+      background: #0e1117;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    
+    .storage-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #facc15);
+      border-radius: 3px;
+    }
+    
+    /* Conteúdo expandido das rows */
+    .row-expand {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.25s ease, opacity 0.25s ease, margin 0.25s ease;
+      margin-top: 0;
+    }
+    
+    .secondary-row:hover .row-expand {
+      max-height: 150px;
+      opacity: 1;
+      margin-top: 8px;
+    }
+    
+    /* LOGS com scroll */
+    .secondary-row.logs-row:hover .row-expand {
+      max-height: 180px;
+    }
+    
+    .logs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      max-height: 140px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    
+    /* Scrollbar estilizada */
+    .logs-list::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    .logs-list::-webkit-scrollbar-track {
+      background: #0e1117;
+      border-radius: 2px;
+    }
+    
+    .logs-list::-webkit-scrollbar-thumb {
+      background: #4a5568;
+      border-radius: 2px;
+    }
+    
+    .logs-list::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+    
+    .log-entry {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      padding: 5px 6px;
+      background: #0e1117;
+      border-radius: 4px;
+    }
+    
+    .log-time {
+      color: #64748b;
+      font-family: monospace;
+      font-size: 10px;
+      min-width: 36px;
+    }
+    
+    .log-icon { font-size: 12px; }
+    .log-text { color: #cbd5e1; flex: 1; }
+    .log-plat { color: #64748b; font-size: 10px; }
+    
+    /* Tags list */
+    .tags-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    
+    .tag {
+      background: rgba(250, 204, 21, 0.1);
+      border: 1px solid rgba(250, 204, 21, 0.2);
+      color: #facc15;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 10px;
+    }
+    
+    /* Storage details */
+    .storage-details {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: #64748b;
+    }
+    
+    .storage-bar-big {
+      height: 8px;
+      background: #0e1117;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+    
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 10px;
+      color: #64748b;
+      font-size: 11px;
+    }
+    
+    /* Telemetria desativada */
+    .telemetry-disabled {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    
+    .telemetry-icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+      opacity: 0.5;
+    }
+    
+    .telemetry-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-bottom: 8px;
+    }
+    
+    .telemetry-message {
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+    
+    .telemetry-btn {
+      background: #facc15;
+      border: none;
+      color: #0e1117;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .telemetry-btn:hover {
+      background: #fbbf24;
+    }
+    
+    /* ─────────────────────────────────────────────────────────── */
+    /* TELEMETRY CONTROLS */
+    /* ─────────────────────────────────────────────────────────── */
+    
+    .telemetry-toggle {
+      position: relative;
+      display: inline-block;
+      width: 42px;
+      height: 22px;
+    }
+    
+    .telemetry-toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #4a5568;
+      transition: 0.3s;
+      border-radius: 22px;
+    }
+    
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .toggle-slider {
+      background-color: #10b981;
+    }
+    
+    input:checked + .toggle-slider:before {
+      transform: translateX(20px);
+    }
+    
+    .telemetry-send-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      border: none;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 6px;
+    }
+    
+    .telemetry-send-btn:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      transform: translateY(-1px);
+    }
+    
+    .telemetry-send-btn:active {
+      transform: translateY(0);
+    }
+    
+    .telemetry-send-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .telemetry-info {
+      margin-top: 8px;
+      font-size: 9px;
+      color: #64748b;
+      text-align: center;
+      line-height: 1.4;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* FOOTER */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    footer {
+      padding: 10px;
+      display: flex;
+      gap: 8px;
+    }
+    
+    .footer-btn {
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    
+    .btn-primary {
+      flex: 1;
+      background: #facc15;
+      border: none;
+      color: #0e1117;
+    }
+    
+    .btn-primary:hover {
+      background: #fbbf24;
+    }
+    
+    .btn-secondary {
+      width: 40px;
+      background: transparent;
+      border: 1px solid #4a5568;
+      color: #94a3b8;
+    }
+    
+    .btn-secondary:hover {
+      border-color: #64748b;
+      color: #e2e8f0;
+    }
+    
+    /* ========================================
+       CHAIN LOG TOOLTIP
+       ======================================== */
+    
+    .chain-log {
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .chain-log:hover {
+      background: rgba(59, 130, 246, 0.1);
+      border-left: 2px solid #3b82f6;
+      padding-left: 6px;
+    }
+    
+    .chain-tooltip {
+      position: fixed;
+      display: none;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 0;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      min-width: 220px;
+      max-width: 300px;
+    }
+    
+    .chain-tooltip-header {
+      padding: 10px 12px;
+      border-bottom: 1px solid #334155;
+      font-size: 13px;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+    
+    .chain-tooltip-body {
+      padding: 10px 12px;
+    }
+    
+    .chain-tooltip-info {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+    
+    .chain-tooltip-icon {
+      font-size: 14px;
+    }
+    
+    .chain-tooltip-hint {
+      font-size: 11px;
+      color: #64748b;
+      font-style: italic;
+    }
+  </style>
+  <script src="../i18n/i18n.js"></script>
+</head>
+<body>
+  
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <span class="logo-icon">💡</span>
+      <span class="logo-text">NODUS</span>
+      <span class="logo-version" id="version">v3.3.1</span>
+    </div>
+    <div class="header-status">
+      <span class="status-dot"></span>
+      Ativo
+    </div>
+  </header>
+  
+  <!-- CONTENT -->
+  <div class="content">
+    
+    <!-- Cards Principais -->
+    <div class="main-cards">
+      
+      <!-- Capturas Hoje -->
+      <div class="main-card">
+        <span class="main-card-icon">🤖</span>
+        <div class="main-card-value" id="capturas-hoje">0</div>
+        <div class="main-card-label" data-i18n="popup.capturestoday">Capturas Hoje</div>
+        <div class="main-card-expand">
+          <div class="expand-grid" id="plataformas-grid">
+            <!-- Preenchido por JS -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Total Ideias -->
+      <div class="main-card card-ideias">
+        <span class="main-card-icon">📚</span>
+        <div class="main-card-value" id="total-ideias">0</div>
+        <div class="main-card-label" data-i18n="popup.totalideas">Total Ideias</div>
+        
+        <!-- Resumo (sempre visível) -->
+        <div class="card-summary">
+          <div class="summary-row">
+            <span class="summary-label" data-i18n="popup.queues">Filas</span>
+            <span class="summary-value" id="total-filas">0</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label" data-i18n="popup.chains">Chains</span>
+            <span class="summary-value" id="total-chains-resumo">0</span>
+          </div>
+        </div>
+        
+        <!-- Detalhes (expande no hover) -->
+        <div class="main-card-expand">
+          <div class="expand-list" id="filas-list">
+            <!-- Preenchido por JS -->
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- Logs -->
+    <div class="secondary-row logs-row">
+      <div class="row-header">
+        <div class="row-left">
+          <span class="row-icon">📝</span>
+          <span class="row-text">Logs <span class="muted">(<span id="log-count">0</span>)</span></span>
+        </div>
+      </div>
+      <div class="row-expand">
+        <div class="logs-list" id="logs-list">
+          <!-- Preenchido por JS -->
+        </div>
+      </div>
+    </div>
+    
+    <!-- Tags -->
+    <div class="secondary-row">
+      <div class="row-header">
+        <div class="row-left">
+          <span class="row-icon">🏷️</span>
+          <span class="row-text">Tags <span class="highlight" id="total-tags">0</span></span>
+        </div>
+      </div>
+      <div class="row-expand">
+        <div class="tags-row" id="tags-list">
+          <!-- Preenchido por JS -->
+        </div>
+      </div>
+    </div>
+    
+    <!-- Telemetria -->
+    <div class="secondary-row telemetry-row">
+      <div class="row-header">
+        <div class="row-left">
+          <span class="row-icon">📊</span>
+          <span class="row-text">Telemetry <span class="highlight" id="telemetry-status">ON</span></span>
+        </div>
+        <span class="row-arrow">▼</span>
+      </div>
+      <div class="row-expand">
+        <div class="expand-list">
+          
+          <!-- Toggle ON/OFF -->
+          <div class="expand-list-item" style="padding: 10px 8px;">
+            <span class="expand-list-label">Status</span>
+            <label class="telemetry-toggle">
+              <input type="checkbox" id="telemetry-toggle" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          
+          <div class="expand-list-divider"></div>
+          
+          <!-- Stats (só visível quando ON) -->
+          <div id="telemetry-stats">
+            <div class="expand-list-item">
+              <span class="expand-list-label">📦 Events in queue</span>
+              <span class="expand-list-value" id="telemetry-queue">0</span>
+            </div>
+            
+            <div class="expand-list-item">
+              <span class="expand-list-label">🕐 Last sent</span>
+              <span class="expand-list-value expand-list-sub" id="telemetry-last-sent">Never</span>
+            </div>
+            
+            <div class="expand-list-item">
+              <span class="expand-list-label">📡 Next auto-send</span>
+              <span class="expand-list-value expand-list-sub" id="telemetry-next-send">in 24h</span>
+            </div>
+            
+            <div class="expand-list-divider"></div>
+            
+            <!-- Botão Send Now -->
+            <button class="telemetry-send-btn" id="telemetry-send-now">
+              🧪 Send Now (<span id="telemetry-send-count">0</span> events)
+            </button>
+            
+            <div class="telemetry-info">
+              ℹ️ Batch sent every 100 events OR 24h
+            </div>
+          </div>
+          
+          <!-- Disabled message -->
+          <div id="telemetry-disabled-msg" style="display: none;">
+            <div class="empty-state">
+              📊 Telemetry disabled<br>
+              <span style="font-size: 10px;">Enable to see stats and logs</span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <!-- Storage -->
+    <div class="secondary-row">
+      <div class="row-header">
+        <div class="row-left">
+          <span class="row-icon">💾</span>
+          <span class="row-text">Storage <span class="highlight" id="storage-percent">0%</span></span>
+        </div>
+        <div class="storage-bar-inline">
+          <div class="storage-bar-fill" id="storage-bar-mini" style="width: 0%;"></div>
+        </div>
+      </div>
+      <div class="row-expand">
+        <div class="storage-bar-big">
+          <div class="storage-bar-fill" id="storage-bar-big" style="width: 0%;"></div>
+        </div>
+        <div class="storage-details">
+          <span id="storage-used">0 KB usado</span>
+          <span id="storage-total">5 MB total</span>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+  <!-- FOOTER -->
+  <footer>
+    <button class="footer-btn btn-primary" id="btn-dashboard">📊 <span data-i18n="dashboard.button">Painel</span></button>
+    <button class="footer-btn btn-secondary" id="btn-config">⚙️</button>
+  </footer>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

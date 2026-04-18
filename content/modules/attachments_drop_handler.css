@@ -1,0 +1,377 @@
+/**
+ * NODUS Drop Handler Styles
+ * Version: 1.0.0
+ */
+
+/* ========================================
+   DROP INDICATOR (floating)
+   ======================================== */
+
+.nodus-drop-indicator {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border: 2px solid #60a5fa;
+    border-radius: 12px;
+    padding: 16px 24px;
+    display: none;
+    align-items: center;
+    gap: 12px;
+    z-index: 1000002;
+    box-shadow: 0 10px 40px rgba(59, 130, 246, 0.6);
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 10px 40px rgba(59, 130, 246, 0.6);
+    }
+    50% {
+        box-shadow: 0 10px 50px rgba(59, 130, 246, 0.9);
+    }
+}
+
+.indicator-icon {
+    font-size: 28px;
+}
+
+.indicator-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+}
+
+/* ========================================
+   DROP ZONE ACTIVE (textarea highlight)
+   ======================================== */
+
+textarea.nodus-drop-active,
+div[contenteditable="true"].nodus-drop-active {
+    border: 3px dashed #3b82f6 !important;
+    background: #3b82f611 !important;
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.5) !important;
+    animation: dropZonePulse 1s ease-in-out infinite;
+}
+
+@keyframes dropZonePulse {
+    0%, 100% {
+        border-color: #3b82f6;
+    }
+    50% {
+        border-color: #60a5fa;
+    }
+}
+
+/* ========================================
+   MODAL OVERLAY
+   ======================================== */
+
+.nodus-drop-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000010;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.nodus-drop-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(6px);
+}
+
+/* ========================================
+   MODAL CONTENT
+   ======================================== */
+
+.nodus-drop-content {
+    position: relative;
+    background: #1a1f29;
+    border: 2px solid #3b82f6;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 520px;
+    box-shadow: 0 25px 80px rgba(59, 130, 246, 0.5);
+    animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Header */
+.nodus-drop-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    border-bottom: 1px solid #2d3748;
+    background: linear-gradient(135deg, #1e2533, #1a1f29);
+}
+
+.nodus-drop-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #e2e8f0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nodus-drop-close {
+    background: none;
+    border: none;
+    color: #a0aec0;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    line-height: 1;
+}
+
+.nodus-drop-close:hover {
+    background: #2d3748;
+    color: #e2e8f0;
+    transform: rotate(90deg);
+}
+
+/* Body */
+.nodus-drop-body {
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Drop Options */
+.nodus-drop-option {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 20px;
+    background: #141923;
+    border: 2px solid #2d3748;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nodus-drop-option:hover {
+    border-color: #3b82f6;
+    background: #1e2433;
+    transform: translateX(6px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
+}
+
+.nodus-drop-option:active {
+    transform: translateX(6px) scale(0.98);
+}
+
+.option-icon {
+    font-size: 36px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.option-content {
+    flex: 1;
+}
+
+.option-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #e2e8f0;
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+}
+
+.option-desc {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+/* Files List */
+.nodus-drop-files {
+    padding: 20px 28px;
+    background: #0f1419;
+    border-top: 1px solid #2d3748;
+    font-size: 12px;
+}
+
+.nodus-drop-files strong {
+    color: #94a3b8;
+    display: block;
+    margin-bottom: 12px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+#nodus-drop-files-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+/* Scrollbar customizado */
+#nodus-drop-files-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+#nodus-drop-files-list::-webkit-scrollbar-track {
+    background: #1a1f29;
+    border-radius: 3px;
+}
+
+#nodus-drop-files-list::-webkit-scrollbar-thumb {
+    background: #2d3748;
+    border-radius: 3px;
+}
+
+#nodus-drop-files-list::-webkit-scrollbar-thumb:hover {
+    background: #3b4b63;
+}
+
+.file-item {
+    color: #94a3b8;
+    padding: 8px 12px;
+    background: #141923;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+.file-item:hover {
+    background: #1e2433;
+    color: #e2e8f0;
+}
+
+.file-size {
+    color: #64748b;
+    font-size: 11px;
+    margin-left: auto;
+}
+
+/* ========================================
+   TOAST (fallback)
+   ======================================== */
+
+.nodus-drop-toast {
+    transition: all 0.3s ease-out;
+}
+
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 600px) {
+    .nodus-drop-content {
+        width: 95%;
+        max-width: none;
+    }
+
+    .nodus-drop-header,
+    .nodus-drop-body,
+    .nodus-drop-files {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .option-icon {
+        font-size: 32px;
+    }
+
+    .option-title {
+        font-size: 14px;
+    }
+
+    .option-desc {
+        font-size: 11px;
+    }
+}
+
+/* ========================================
+   DARK MODE COMPATIBILITY
+   ======================================== */
+
+@media (prefers-color-scheme: dark) {
+    .nodus-drop-modal {
+        /* Já está dark por padrão */
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+.nodus-drop-option:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+.nodus-drop-close:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Loading spinner se necessário */
+.drop-loading {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #3b82f6;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}

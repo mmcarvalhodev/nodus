@@ -1,0 +1,41 @@
+# OS / Editor
+desktop.ini
+*.bak
+*.tmp
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Dependencies
+node_modules/
+
+# Secrets & env
+.env
+.env.*
+*.key
+*.pem
+*.p12
+secrets.json
+credentials.json
+api-keys.txt
+*.secret
+
+# Local testing & results
+tests/
+test-results/
+coverage/
+
+# Archived / legacy
+antiga/
+DRAG_*.md
+SUPPORT_LOG_*.md
+
+# Old UI files
+ui/popup_old.html
+ui/popup_old.js
+
+# Build artifacts (except releases/ which we keep tracked)
+*.log

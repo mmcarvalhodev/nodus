@@ -1,0 +1,485 @@
+/* ═══════════════════════════════════════════════════════════
+   NODUS Projects - Estilos
+   ═══════════════════════════════════════════════════════════ */
+
+/* Layout principal: sidebar + conteudo */
+.nodus-projects-view {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ---- Sidebar de Projetos ---- */
+.nodus-projects-sidebar {
+  width: 180px;
+  background: #111827;
+  border-right: 1px solid #1e2d44;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+
+.nodus-projects-sidebar::-webkit-scrollbar { width: 3px; }
+.nodus-projects-sidebar::-webkit-scrollbar-thumb { background: #2d3748; border-radius: 3px; }
+
+.nodus-projects-sidebar-header {
+  padding: 10px 12px;
+  border-bottom: 1px solid #1e2d44;
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Item de projeto na sidebar */
+.nodus-project-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  gap: 8px;
+  border-left: 3px solid transparent;
+  position: relative;
+}
+
+.nodus-project-item.drag-over {
+  background: #facc1515;
+  border-left-color: #facc15;
+  box-shadow: inset 0 0 0 1px #facc1540;
+}
+
+.nodus-project-idea-card[draggable].dragging,
+.nodus-project-idea-card[draggable]:active {
+  cursor: grabbing;
+}
+
+.nodus-project-item:hover {
+  background: #1a2332;
+}
+
+.nodus-project-item.active {
+  background: #1a2744;
+  border-left-color: #facc15;
+}
+
+.nodus-project-item.special {
+  border-bottom: 1px solid #1e2d44;
+}
+
+.nodus-project-item-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.nodus-project-item-name {
+  flex: 1;
+  font-size: 12px;
+  color: #e2e8f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nodus-project-item.active .nodus-project-item-name {
+  color: #facc15;
+  font-weight: 600;
+}
+
+.nodus-project-item-count {
+  font-size: 10px;
+  color: #475569;
+  background: #1e293b;
+  padding: 1px 6px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.nodus-project-item.active .nodus-project-item-count {
+  background: #facc1520;
+  color: #facc15;
+}
+
+/* Botoes de acao hover */
+.nodus-project-item-actions {
+  display: none;
+  gap: 2px;
+  position: absolute;
+  right: 6px;
+}
+
+.nodus-project-item:hover .nodus-project-item-actions {
+  display: flex;
+}
+
+.nodus-project-item:hover .nodus-project-item-count {
+  display: none;
+}
+
+.nodus-project-action-btn {
+  background: none;
+  border: none;
+  color: #475569;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.nodus-project-action-btn:hover {
+  background: #ffffff10;
+  color: #e2e8f0;
+}
+
+.nodus-project-action-btn.delete:hover {
+  color: #ef4444;
+}
+
+/* Botao novo projeto */
+.nodus-project-new-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  margin: 6px 8px;
+  background: #141a27;
+  border: 1px dashed #2d3748;
+  border-radius: 6px;
+  color: #64748b;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.nodus-project-new-btn:hover {
+  border-color: #facc15;
+  color: #facc15;
+  background: #facc1508;
+}
+
+/* ---- Area de conteudo ---- */
+.nodus-projects-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nodus-projects-content::-webkit-scrollbar { width: 4px; }
+.nodus-projects-content::-webkit-scrollbar-thumb { background: #2d3748; border-radius: 4px; }
+
+.nodus-projects-content-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  margin-bottom: 4px;
+}
+
+.nodus-projects-content-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nodus-projects-content-count {
+  font-size: 11px;
+  color: #64748b;
+}
+
+/* Empty state */
+.nodus-projects-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #475569;
+}
+
+.nodus-projects-empty-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.nodus-projects-empty-text {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 4px;
+}
+
+.nodus-projects-empty-sub {
+  font-size: 11px;
+  color: #475569;
+}
+
+/* ---- Item card/chain dentro do projeto ---- */
+.nodus-project-idea-card {
+  background: #1a1f29;
+  border: 1px solid #2d3748;
+  border-radius: 8px;
+  padding: 10px 12px;
+  border-left: 3px solid #3b82f6;
+  transition: all 0.15s;
+}
+
+.nodus-project-idea-card:hover {
+  border-color: #3b82f680;
+  background: #1e2535;
+}
+
+.nodus-project-idea-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.nodus-project-idea-platform {
+  font-size: 10px;
+  color: #64748b;
+}
+
+.nodus-project-idea-date {
+  font-size: 9px;
+  color: #475569;
+}
+
+.nodus-project-idea-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: #e2e8f0;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.nodus-project-idea-type {
+  font-size: 9px;
+  color: #475569;
+  margin-top: 4px;
+}
+
+/* ---- Modal criar/editar projeto ---- */
+.nodus-project-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000020;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nodus-project-modal {
+  background: #1a1f29;
+  border: 1px solid #2d3748;
+  border-radius: 12px;
+  width: min(320px, calc(100vw - 40px));
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.nodus-project-modal-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid #2d3748;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nodus-project-modal-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.nodus-project-modal-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.nodus-project-modal-input {
+  width: 100%;
+  background: #111827;
+  border: 1px solid #2d3748;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #e2e8f0;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.nodus-project-modal-input:focus {
+  border-color: #facc15;
+}
+
+.nodus-project-modal-colors {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.nodus-project-color-option {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nodus-project-color-option:hover {
+  transform: scale(1.15);
+}
+
+.nodus-project-color-option.selected {
+  border-color: white;
+  box-shadow: 0 0 0 2px #facc15;
+}
+
+.nodus-project-modal-footer {
+  padding: 12px 16px;
+  border-top: 1px solid #2d3748;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.nodus-project-modal-btn {
+  padding: 7px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+}
+
+.nodus-project-modal-btn.cancel {
+  background: #2d3748;
+  color: #94a3b8;
+}
+
+.nodus-project-modal-btn.cancel:hover {
+  background: #374151;
+}
+
+.nodus-project-modal-btn.confirm {
+  background: #facc15;
+  color: #0e1117;
+}
+
+.nodus-project-modal-btn.confirm:hover {
+  background: #eab308;
+}
+
+.nodus-project-modal-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVIDADE — Projects
+   ═══════════════════════════════════════════════════════════ */
+
+/* Modal: nunca ultrapassar viewport */
+.nodus-project-modal {
+  max-width: calc(100vw - 40px);
+}
+
+/* Sidebar mais estreita em telas <= 1366px */
+@media (max-width: 1366px) {
+  .nodus-projects-sidebar {
+    width: 155px;
+  }
+  .nodus-project-item-name {
+    font-size: 11px;
+  }
+}
+
+/* Sidebar ainda mais estreita em telas <= 1100px */
+@media (max-width: 1100px) {
+  .nodus-projects-sidebar {
+    width: 130px;
+  }
+  .nodus-project-item {
+    padding: 7px 8px;
+  }
+  .nodus-project-item-name {
+    font-size: 10px;
+  }
+  .nodus-project-item-count {
+    display: none;
+  }
+  .nodus-projects-content {
+    padding: 8px;
+  }
+}
+
+/* Telas estreitas (900px) — ações visíveis sem hover */
+@media (max-width: 900px) {
+  .nodus-projects-sidebar {
+    width: 110px;
+    flex-shrink: 0;
+  }
+  .nodus-project-item-actions {
+    display: flex;
+    position: static;
+  }
+  .nodus-project-item:hover .nodus-project-item-count,
+  .nodus-project-item-count {
+    display: none;
+  }
+  .nodus-project-item {
+    padding: 6px 8px;
+    gap: 5px;
+  }
+  .nodus-project-item-name {
+    font-size: 10px;
+  }
+  .nodus-project-item-dot {
+    width: 8px;
+    height: 8px;
+  }
+  .nodus-projects-content-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .nodus-projects-content-title {
+    font-size: 12px;
+  }
+  .nodus-project-idea-card {
+    padding: 8px 10px;
+  }
+  .nodus-project-idea-title {
+    font-size: 11px;
+  }
+}

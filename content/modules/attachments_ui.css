@@ -1,0 +1,1010 @@
+/**
+ * NODUS Attachments UI Styles
+ * Version: 1.0.0
+ */
+
+/* Modal Overlay */
+.nodus-attachments-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.nodus-attachments-modal.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.nodus-attachments-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+}
+
+/* Modal Content */
+.nodus-attachments-content {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    background: #1a1a1a;
+    border: 2px solid #2a2a2a;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.nodus-attachments-modal.visible .nodus-attachments-content {
+    transform: scale(1);
+}
+
+/* Header */
+.nodus-attachments-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #2a2a2a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.nodus-attachments-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.nodus-attachments-close {
+    background: transparent;
+    border: 1px solid #3a3a3a;
+    color: #888;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.nodus-attachments-close:hover {
+    border-color: #ff4444;
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+}
+
+/* File Detection Alert */
+.nodus-file-detection-alert {
+    background: linear-gradient(135deg, #ff8c00 0%, #ffa500 100%);
+    color: #000;
+    padding: 12px 16px;
+    margin: 16px 16px 0 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 500;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.nodus-file-detection-alert .alert-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nodus-file-detection-alert .alert-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.alert-btn {
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+    color: #000;
+}
+
+.alert-btn:hover {
+    background: rgba(0, 0, 0, 0.4);
+    transform: scale(1.05);
+}
+
+/* Body */
+.nodus-attachments-body {
+    padding: 20px 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Attachments List */
+.nodus-attachments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+    min-height: 100px;
+}
+
+/* Empty State */
+.nodus-attachments-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.nodus-attachments-empty .empty-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+.nodus-attachments-empty .empty-text {
+    font-size: 14px;
+}
+
+/* Attachment Item */
+.nodus-attachment-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #141414;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px dashed #2a2a2a;
+    transition: all 0.2s;
+    cursor: pointer !important; /* Deixa claro que é clicável */
+    user-select: none;
+    margin-bottom: 8px;
+}
+
+.nodus-attachment-item:hover {
+    border-color: #3b82f6;
+    background: #1a1a1a;
+    transform: translateX(2px);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
+.nodus-attachment-item.selected {
+    border-style: solid !important;
+    border-color: #3b82f6 !important;
+    border-width: 3px !important;
+    background: #3b82f611 !important;
+    box-shadow: 0 0 0 2px #3b82f633 inset, 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+    transform: scale(1.02);
+}
+
+.nodus-attachment-item.selected .attachment-thumb {
+    background: #3b82f622 !important;
+    border: 2px solid #3b82f6 !important;
+}
+
+.nodus-attachment-item.dragging {
+    opacity: 0.5;
+    border-color: #4a9eff;
+    background: #1a3a5a;
+}
+
+/* Thumbnail */
+.attachment-thumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    background: linear-gradient(135deg, #2d3748 0%, #1a1f29 100%);
+    border: 1px solid #3a4255;
+    position: relative;
+    overflow: hidden;
+}
+
+.attachment-thumb.type-pdf {
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+    border-color: #dc2626;
+}
+
+.attachment-thumb.type-image {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    border-color: #059669;
+}
+
+.attachment-thumb.type-excel {
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    border-color: #16a34a;
+}
+
+.attachment-thumb.type-powerpoint {
+    background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+    border-color: #ea580c;
+}
+
+.attachment-thumb.type-word {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    border-color: #2563eb;
+}
+
+.attachment-thumb.type-zip {
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    border-color: #7c3aed;
+}
+
+.attachment-thumb.type-generic {
+    background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+    border-color: #4b5563;
+}
+
+.attachment-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+}
+
+.attachment-icon {
+    font-size: 24px;
+}
+
+.attachment-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.attachment-name {
+    font-size: 13px;
+    color: #fff;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.attachment-meta {
+    display: flex;
+    gap: 8px;
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.attachment-size {
+    font-size: 11px;
+    color: #888;
+}
+
+.attachment-date {
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.attachment-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.attachment-btn {
+    background: transparent;
+    border: 1px solid #3a3a3a;
+    color: #aaa;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.attachment-btn:hover {
+    border-color: #4a9eff;
+    color: #4a9eff;
+    background: rgba(74, 158, 255, 0.1);
+}
+
+.attachment-btn.delete:hover {
+    border-color: #ff4444;
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+}
+
+/* Actions */
+.nodus-attachments-actions {
+    margin-bottom: 16px;
+}
+
+.nodus-attachments-add-btn {
+    background: linear-gradient(135deg, #4a9eff 0%, #357abd 100%);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.nodus-attachments-add-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(74, 158, 255, 0.3);
+}
+
+.nodus-attachments-add-btn:active {
+    transform: scale(0.98);
+}
+
+/* Stats */
+.nodus-attachments-stats {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    background: #141414;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #888;
+}
+
+/* Card Attachment Button (in dashboard) */
+.card-attachment-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    color: #888;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.card-attachment-btn:hover {
+    border-color: #4a9eff;
+    color: #4a9eff;
+    background: rgba(74, 158, 255, 0.1);
+}
+
+.card-attachment-btn.has-files {
+    border-color: #4a9eff;
+    color: #4a9eff;
+}
+
+.card-attachment-btn.has-alert {
+    animation: pulse-attachment 2s ease-in-out infinite;
+}
+
+.card-attachment-btn.added {
+    animation: pulse-added 0.4s ease;
+}
+
+@keyframes pulse-attachment {
+    0%, 100% {
+        border-color: #ffa500;
+        color: #ffa500;
+    }
+    50% {
+        border-color: #ffb733;
+        color: #ffb733;
+    }
+}
+
+@keyframes pulse-added {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Card Note Button */
+.card-note-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    color: #888;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.card-note-btn:hover {
+    border-color: #f59e0b;
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.1);
+}
+
+.card-note-btn.has-notes {
+    border-color: #f59e0b;
+    color: #f59e0b;
+}
+
+/* Card Attachments Inline Section */
+.card-attachments-section {
+    margin-top: 8px;
+    padding: 8px;
+    background: #0f1419;
+    border: 2px solid #2a2a2a;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.nodus-idea-card.showing-attachments {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3) !important;
+    border-color: #ffffff !important;
+    border-width: 3px !important;
+}
+
+.attachments-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #2a2a2a;
+    max-width: 100%;
+}
+
+.attachments-header h4 {
+    margin: 0;
+    font-size: 11px;
+    color: #fff;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 0;
+}
+
+.attachments-close-btn {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    margin-left: 8px;
+}
+
+.attachments-close-btn:hover {
+    background: rgba(255, 68, 68, 0.1);
+    color: #ff4444;
+}
+
+.attachments-list {
+    max-height: 120px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 8px;
+}
+
+.attachments-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.attachments-list::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 2px;
+}
+
+.attachments-list::-webkit-scrollbar-thumb {
+    background: #3a3a3a;
+    border-radius: 2px;
+}
+
+.attachments-list::-webkit-scrollbar-thumb:hover {
+    background: #4a4a4a;
+}
+
+.attachments-empty {
+    text-align: center;
+    padding: 10px;
+    color: #666;
+    font-size: 10px;
+}
+
+.attachment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    margin-bottom: 3px;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    transition: all 0.2s;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.attachment-item:hover {
+    border-color: #3a3a3a;
+    background: #1f1f1f;
+}
+
+.attachment-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.attachment-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.attachment-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+    overflow: hidden;
+    flex: 1;
+}
+
+.attachment-name {
+    font-size: 9px;
+    color: #fff;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.attachment-size {
+    font-size: 8px;
+    color: #888;
+}
+
+.attachment-actions {
+    display: flex;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.attachment-download-btn,
+.attachment-delete-btn {
+    background: transparent;
+    border: 1px solid #3a3a3a;
+    color: #aaa;
+    padding: 2px 4px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 10px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.attachment-download-btn:hover {
+    border-color: #4a9eff;
+    color: #4a9eff;
+    background: rgba(74, 158, 255, 0.1);
+}
+
+.attachment-delete-btn:hover {
+    border-color: #ff4444;
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+}
+
+.attachments-actions {
+    margin-top: 6px;
+}
+
+.attachments-add-btn {
+    width: 100%;
+    max-width: 100%;
+    padding: 5px;
+    background: linear-gradient(135deg, #4a9eff 0%, #357abd 100%);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 600;
+    transition: all 0.2s;
+    box-sizing: border-box;
+}
+
+.attachments-add-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(74, 158, 255, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nodus-attachments-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .nodus-attachments-header,
+    .nodus-attachments-body {
+        padding: 16px;
+    }
+}
+
+/* CRITICAL: Garantir que NADA force o card a expandir */
+.nodus-idea-card > * {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.nodus-idea-card .card-title,
+.nodus-idea-card .card-content,
+.nodus-idea-card .card-tags,
+.nodus-idea-card .card-meta,
+.nodus-idea-card .card-actions {
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* Card Notes Inline Section */
+.card-notes-section {
+    margin-top: 8px;
+    padding: 8px;
+    background: #0f1419;
+    border: 2px solid #2a2a2a;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.nodus-idea-card.showing-notes {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3) !important;
+    border-color: #ffffff !important;
+    border-width: 3px !important;
+}
+
+.notes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #2a2a2a;
+    max-width: 100%;
+}
+
+.notes-header h4 {
+    margin: 0;
+    font-size: 11px;
+    color: #fff;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 0;
+}
+
+.notes-close-btn {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    margin-left: 8px;
+}
+
+.notes-close-btn:hover {
+    background: rgba(255, 68, 68, 0.1);
+    color: #ff4444;
+}
+
+.notes-textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 8px;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 11px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 80px;
+    box-sizing: border-box;
+}
+
+.notes-textarea:focus {
+    outline: none;
+    border-color: #f59e0b;
+}
+
+.notes-actions {
+    margin-top: 6px;
+    display: flex;
+    gap: 4px;
+}
+
+.notes-save-btn,
+.notes-clear-btn {
+    flex: 1;
+    padding: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 600;
+    transition: all 0.2s;
+    box-sizing: border-box;
+}
+
+.notes-save-btn {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: #fff;
+}
+
+.notes-save-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.notes-clear-btn {
+    background: #374151;
+    color: #9ca3af;
+}
+
+.notes-clear-btn:hover {
+    background: #4b5563;
+    color: #fff;
+}
+
+/* ==============================================
+   DRAG-AND-DROP ATTACHMENTS
+   ============================================== */
+
+/* Drag Hint */
+.nodus-drag-hint {
+    background: #151921;
+    border: 1px solid #3a4255;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin: 12px 0;
+    text-align: center;
+    color: #a0aec0;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.nodus-drag-hint strong {
+    color: #4a9eff;
+}
+
+/* Drag Counter - Visual indicator during drag */
+.nodus-drag-counter {
+    position: fixed;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+    pointer-events: none;
+    z-index: 99999999;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.nodus-drag-counter.active {
+    display: flex;
+}
+
+.drag-counter-icon {
+    font-size: 16px;
+}
+
+.drag-counter-number {
+    font-size: 18px;
+    color: #facc15;
+    font-weight: 900;
+}
+
+
+/* ========================================
+   MAIN ACTION BUTTONS
+   ======================================== */
+
+.nodus-attachments-main-actions {
+    display: flex;
+    gap: 10px;
+    padding: 16px;
+    background: #0f1419;
+    border-top: 1px solid #2d3748;
+    border-bottom: 1px solid #2d3748;
+    margin-top: 12px;
+}
+
+.nodus-action-btn {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #2d3748;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #141923;
+    color: #64748b;
+}
+
+.nodus-action-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.nodus-action-btn:disabled:hover {
+    transform: none;
+    border-color: #2d3748;
+    box-shadow: none;
+}
+
+.nodus-action-btn.primary {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border-color: #60a5fa;
+    color: #fff;
+}
+
+.nodus-action-btn.primary:disabled {
+    background: #141923;
+    border-color: #2d3748;
+    color: #64748b;
+}
+
+.nodus-action-btn.primary.active:hover {
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+}
+
+.nodus-action-btn.secondary.active {
+    border-color: #3b82f6;
+    color: #e2e8f0;
+}
+
+.nodus-action-btn.secondary.active:hover {
+    background: #1e2433;
+    border-color: #60a5fa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+#selected-count,
+#selected-download-count {
+    background: rgba(59, 130, 246, 0.2);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* Responsive para botões */
+@media (max-width: 700px) {
+    .nodus-attachments-main-actions {
+        flex-direction: column;
+    }
+    
+    .nodus-action-btn {
+        width: 100%;
+    }
+}
+
+/* ========================================
+   CHECKBOX VISUAL INDICATOR
+   ======================================== */
+
+.attachment-checkbox {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.checkbox-icon {
+    font-size: 20px;
+    color: #64748b;
+    display: block;
+}
+
+.checkbox-icon-checked {
+    font-size: 20px;
+    color: #3b82f6;
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.nodus-attachment-item.selected .checkbox-icon {
+    display: none;
+}
+
+.nodus-attachment-item.selected .checkbox-icon-checked {
+    display: block;
+}
+
+.nodus-attachment-item:hover .checkbox-icon {
+    color: #3b82f6;
+}
