@@ -12,7 +12,6 @@
     "storage",
     "tabs",
     "activeTab",
-    "offscreen",
     "alarms"
   ],
   "host_permissions": [
