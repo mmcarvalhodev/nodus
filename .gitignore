@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+*.zip
+*.xpi
+releases/
+
+# OS / editor cruft
+.DS_Store
+desktop.ini
+Thumbs.db
+*.log
+
+# Secrets / local config (never commit)
+.env
+.env.*
+config.json
+*.secret

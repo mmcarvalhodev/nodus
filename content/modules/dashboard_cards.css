@@ -1,0 +1,127 @@
+
+/* ========================================
+   INLINE ATTACHMENTS - SELECTION & ACTIONS
+   ======================================== */
+
+/* Inline attachment items */
+.inline-attachment-item {
+    cursor: pointer !important;
+    transition: all 0.2s ease;
+}
+
+.inline-attachment-item:hover {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2) !important;
+}
+
+.inline-attachment-item.selected {
+    border: 3px solid #3b82f6 !important;
+    background: #3b82f611 !important;
+    box-shadow: 0 0 0 2px #3b82f633 inset, 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+    transform: scale(1.02);
+}
+
+/* Checkbox for inline items */
+.inline-attachment-item .attachment-checkbox {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+}
+
+.inline-attachment-item .checkbox-icon {
+    font-size: 20px;
+    color: #64748b;
+    display: block;
+}
+
+.inline-attachment-item .checkbox-icon-checked {
+    font-size: 20px;
+    color: #3b82f6;
+    display: none;
+}
+
+.inline-attachment-item.selected .checkbox-icon {
+    display: none;
+}
+
+.inline-attachment-item.selected .checkbox-icon-checked {
+    display: block;
+}
+
+.inline-attachment-item:hover .checkbox-icon {
+    color: #3b82f6;
+}
+
+/* Action buttons inline */
+.attachments-main-actions-inline {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    background: #0f1419;
+    border-top: 1px solid #2d3748;
+    margin-top: 8px;
+}
+
+.action-btn-inline {
+    flex: 1;
+    padding: 10px 14px;
+    border: 2px solid #2d3748;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #141923;
+    color: #64748b;
+}
+
+.action-btn-inline:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.action-btn-inline.primary {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border-color: #60a5fa;
+    color: #fff;
+}
+
+.action-btn-inline.primary:disabled {
+    background: #141923;
+    border-color: #2d3748;
+    color: #64748b;
+}
+
+.action-btn-inline.primary.active:hover {
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+}
+
+.action-btn-inline.secondary.active {
+    border-color: #3b82f6;
+    color: #e2e8f0;
+}
+
+.action-btn-inline.secondary.active:hover {
+    background: #1e2433;
+    border-color: #60a5fa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.selected-count-inline {
+    background: rgba(59, 130, 246, 0.2);
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 700;
+}
