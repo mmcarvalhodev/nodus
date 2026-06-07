@@ -29,7 +29,6 @@
     "https://nodus-worker.mmcarvalho-dev.workers.dev/*",
     "https://nodus-specs.mmcarvalho-dev.workers.dev/*",
     "https://nodus-health-worker.mmcarvalho-dev.workers.dev/*",
-    "http://localhost:8787/*",
     "https://files.oaiusercontent.com/*",
     "https://*.oaiusercontent.com/*",
     "https://cdn.openai.com/*",
